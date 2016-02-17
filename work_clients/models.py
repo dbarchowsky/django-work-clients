@@ -54,7 +54,7 @@ class Client(models.Model):
     link_to_frontend.short_description = "Front-end page"
 
     def is_design_related(self):
-        if 'DESIGN_INDUSTRY_TYPES' not in settings:
+        if hasattr(settings, 'DESIGN_INDUSTRY_TYPES') is False:
             raise ImproperlyConfigured('DESIGN_INDUSTRY_TYPES setting not found.')
         i = [item for item in self.industries.all() if item.name in settings.DESIGN_INDUSTRY_TYPES]
         return True if i else False
